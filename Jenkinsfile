@@ -19,7 +19,7 @@ pipeline {
 	stages {
 		stage("Build") {
 			steps {				
-				bat "mvn clean package"
+				sh "mvn clean package"
 			}
 		}
 		
@@ -30,7 +30,7 @@ pipeline {
 				}
 			}
 			steps {
-				bat "mvn verify -DskipUnitTests"
+				sh "mvn verify -DskipUnitTests"
 			}
 		}
 
@@ -39,7 +39,7 @@ pipeline {
 				script {
 					def sonarQubeScannerHome = tool "SonarQube Scanner 4.6"   /* may need to be adapted */
 					withSonarQubeEnv("SonarQube 8.9") {   /* may need to be adapted */
-						bat "${sonarQubeScannerHome}/bin/sonar-scanner"
+						sh "${sonarQubeScannerHome}/bin/sonar-scanner"
 					}
 				}
 			}
