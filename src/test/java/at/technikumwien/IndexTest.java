@@ -11,9 +11,10 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeDriverService;
-import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxDriverLogLevel;
+// import org.openqa.selenium.firefox.FirefoxDriverService;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -38,14 +39,16 @@ public class IndexTest {
 	
 	@BeforeAll
 	public static void setUpBeforeClass() {
-		WebDriverManager.chromedriver().setup();
-		System.setProperty(ChromeDriverService.CHROME_DRIVER_SILENT_OUTPUT_PROPERTY, "true");
+		WebDriverManager.firefoxdriver().setup();
+		// System.setProperty(FirefoxDriverService.CHROME_DRIVER_SILENT_OUTPUT_PROPERTY, "true");
 	}
 	
 	@BeforeEach
 	public void setUp() {
-		driver = new ChromeDriver(
-			new ChromeOptions().setHeadless(true)   // runs browser without GUI
+		driver = new FirefoxDriver(
+			new FirefoxOptions()
+				.setHeadless(true)   // runs browser without GUI
+				.setLogLevel(FirefoxDriverLogLevel.WARN)   // substitute to "Silent Output"?
 		);
 		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 		wait = new WebDriverWait(driver, 3);
